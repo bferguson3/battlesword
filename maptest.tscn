@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://qql4yv3vugbc"]
+
+[ext_resource type="PackedScene" uid="uid://83at0xp8nqmk" path="res://unit.tscn" id="1_snlis"]
+[ext_resource type="Script" uid="uid://cpwe58xybugst" path="res://mainCamera.gd" id="2_0hval"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0hval"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snlis"]
+albedo_color = Color(0.16445974, 0.16445976, 0.16445974, 1)
+
+[sub_resource type="Environment" id="Environment_0hval"]
+background_mode = 1
+
+[sub_resource type="PrismMesh" id="PrismMesh_0hval"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_snlis"]
+data = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(7.487101, 0, 0, 0, 0.99828017, 0, 0, 0, 5.490541, 0, 0, 0)
+mesh = SubResource("PlaneMesh_0hval")
+surface_material_override/0 = SubResource("StandardMaterial3D_snlis")
+
+[node name="BattleCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 2, 1)
+environment = SubResource("Environment_0hval")
+script = ExtResource("2_0hval")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.43235326, 0.9017043, 0, -0.9017043, 0.43235326, 0, 3.740777, 0)
+
+[node name="terrain" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020687819, -2.3841858e-07, -0.026786566)
+mesh = SubResource("PrismMesh_0hval")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="terrain"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="terrain/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_snlis")
+
+[node name="terrain2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.36643633, 0, -0.9304431, 0, 1, 0, 0.9304431, 0, 0.36643633, 4.562092, 0, 3.6951022)
+mesh = SubResource("PrismMesh_0hval")
+
+[node name="terrain3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.36643633, 0, -0.9304431, 0, 1, 0, 0.9304431, 0, 0.36643633, -4.951951, 0, -2.1244514)
+mesh = SubResource("PrismMesh_0hval")
+
+[node name="bnun unit" parent="." instance=ExtResource("1_snlis")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9918838, 0, -0.75975573)
+_baseColor = Color(0.50065374, 0.66175973, 1, 1)
+
+[node name="bnun unit2" parent="." instance=ExtResource("1_snlis")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08933854, 0, 0.6889808)
+_baseColor = Color(1, 0.627451, 0.57254905, 1)
+FlipX = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]

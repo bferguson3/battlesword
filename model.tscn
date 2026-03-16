@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://d75g7d4bm307"]
+
+[ext_resource type="Texture2D" uid="uid://xbdki2tj4ogs" path="res://sister1.png" id="1_bctr2"]
+[ext_resource type="Script" uid="uid://b01y3a8xm57av" path="res://BSModel.cs" id="2_rka1o"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_c5bv7"]
+height = 1.0002441
+
+[node name="battlenun1" type="Sprite3D"]
+billboard = 1
+texture_filter = 0
+texture = ExtResource("1_bctr2")
+script = ExtResource("2_rka1o")
+
+[node name="battlenun-body" type="CharacterBody3D" parent="."]
+
+[node name="EyeCaster" type="RayCast3D" parent="battlenun-body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.088, 0)
+
+[node name="battlenun-collider" type="CollisionShape3D" parent="battlenun-body"]
+transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 0, 0, 0)
+shape = SubResource("CylinderShape3D_c5bv7")
+
+[node name="LOSNodes" type="Node3D" parent="battlenun-body/battlenun-collider"]
+
+[node name="TopLeft" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.383, 0.50950384, 0)
+debug_shape_thickness = 1
+
+[node name="TopRight" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.40600002, 0.5300413, 0)
+debug_shape_thickness = 1
+
+[node name="TopBack" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.48322514, -0.385)
+debug_shape_thickness = 1
+
+[node name="TopFront" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.488, 0.429)
+debug_shape_thickness = 1
+
+[node name="BottomLeft" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.5282704, -0.4416706, 0)
+debug_shape_thickness = 1
+
+[node name="BottomRight" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.41998923, -0.4808595, 0)
+debug_shape_thickness = 1
+
+[node name="BottomBack" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.4946836, -0.37922218)
+debug_shape_thickness = 1
+
+[node name="BottomFront" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.46791026, 0.4669685)
+debug_shape_thickness = 1

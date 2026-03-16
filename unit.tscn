@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://83at0xp8nqmk"]
+
+[ext_resource type="PackedScene" uid="uid://d75g7d4bm307" path="res://model.tscn" id="1_btf8p"]
+[ext_resource type="Script" uid="uid://d0suofj6snmt" path="res://BSUnit.cs" id="1_ctwoc"]
+
+[node name="bnun unit" type="Node3D"]
+script = ExtResource("1_ctwoc")
+_baseColor = Color(1, 1, 1, 1)
+
+[node name="battlenun1" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6463026, 0.20984244, 0)
+
+[node name="battlenun2" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31024772, 0.20984244, 0)
+
+[node name="battlenun3" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01456666, 0.20984244, 0)
+
+[node name="battlenun4" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33164433, 0.20984244, 0)
+
+[node name="battlenun5" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6202229, 0.20984244, 0)
+
+[node name="battlenun6" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6463026, 0.20984244, 0.32226026)
+
+[node name="battlenun7" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31024772, 0.20984244, 0.32226026)
+
+[node name="battlenun8" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01456666, 0.20984244, 0.32226026)
+
+[node name="battlenun9" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33164433, 0.20984244, 0.32226026)
+
+[node name="battlenun10" parent="." instance=ExtResource("1_btf8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6202229, 0.20984244, 0.32226026)

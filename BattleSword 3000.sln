@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleSword 3000", "BattleSword 3000.csproj", "{D062746A-13A3-45E4-99DF-9BA87B1783A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D062746A-13A3-45E4-99DF-9BA87B1783A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D062746A-13A3-45E4-99DF-9BA87B1783A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D062746A-13A3-45E4-99DF-9BA87B1783A2}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{D062746A-13A3-45E4-99DF-9BA87B1783A2}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{D062746A-13A3-45E4-99DF-9BA87B1783A2}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{D062746A-13A3-45E4-99DF-9BA87B1783A2}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
