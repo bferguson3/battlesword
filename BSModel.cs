@@ -1,11 +1,11 @@
 using Godot;
-using System;
-using System.Runtime.CompilerServices;
 
 public partial class BSModel : Sprite3D
 {
 	public CollisionObject3D myCollider;
+	public RayCast3D myEyes;
 	private CollisionShape3D myShape;
+	public Godot.Collections.Array<Node> myLines;
 
 	[Export]
 	public bool inCoverDisplay;
@@ -28,6 +28,8 @@ public partial class BSModel : Sprite3D
 		colorMult = 1.0f;
 		myCollider = (CollisionObject3D)GetNode("battlenun-body");	
 		myShape = (CollisionShape3D)GetNode("battlenun-body/battlenun-collider");
+		myLines = myShape.GetNode<Node>("LOSNodes").GetChildren();
+		myEyes = GetNode<Node>("battlenun-body").GetNode<RayCast3D>("EyeCaster");
 
 		myCollider.SetRayPickable(true);
 		myCollider.MouseEntered += MouseFunc;

@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-
 
 public partial class BSUnit : Node3D
 {
@@ -10,16 +8,15 @@ public partial class BSUnit : Node3D
 	[Export]
 	public bool FlipX;
 
-	BSModel unit1;
-	RayCast3D eyeCaster;
-	Node3D unitTgt;
+	RayCast3D eyeSource;
+	BSUnit unitTgt;
 	BSModel modelTgt;
 	bool calculateLOS;
 
 	Godot.Collections.Array<Node> tgtModels;
 	Godot.Collections.Array<Node> tgtLosObj;
 
-	Godot.Collections.Array<Node> myUnits;
+	public Godot.Collections.Array<Node> myUnits;
 
 	int tgtModelsCounted;
 	bool los_get_collisions;
@@ -41,7 +38,7 @@ public partial class BSUnit : Node3D
 	// 													5+	4+	3+	2+
 	public int cur_hearts = 10;
 	public int max_hearts = 10; // this is toughness or # of models in this unit. 
-	public int move = 6; // lowest probably 6, maybe 4 
+	public int move = 6; // lowest probably 6, maybe 4, max 20ish
 	
 	public List<BSLoadout> loadouts = new List<BSLoadout>();
 	public List<BSAbility> abilities = new List<BSAbility>();
@@ -59,7 +56,6 @@ public partial class BSUnit : Node3D
 		loadouts[0].abilities.Add(new BSAbility());
 		loadouts[0].abilities[0].abilityType = BSAbility.AbilityType.Blast;
 		*/
-
 		// TODO: When checking LOS on target sprite,
 		//. iterate through all 8 of its LOS spots 
 		//. 
@@ -70,40 +66,30 @@ public partial class BSUnit : Node3D
 			//s.Modulate = _baseColor;
 			s.SetColor(_baseColor);
 		}
-
-		
 		foreach(Sprite3D s in myUnits)
 		{
 			s.FlipH = FlipX;
 		}
-		
 	}
 
     public override void _PhysicsProcess(double delta)
     {
-		
 		if(los_get_collisions)
 		{
 			foreach(BSModel b in tgtModels)
 			{
-				tgtLosObj = b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
+				tgtLosObj = b.myLines; //b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
 				int los_ct = 8;
 				foreach (RayCast3D r in tgtLosObj)
-				{
 					if (!r.IsColliding())
-					{
 						los_ct--;
-					}		
-				}
+							
 				if(los_ct == 8)
-				{
-					GD.Print(b.Name, " is hidden");
+				{	GD.Print(b.Name, " is hidden");
 				} else if(los_ct == 0)
-				{
-					GD.Print(b.Name, " is fully visible");
+				{	GD.Print(b.Name, " is fully visible");
 				} else
-				{
-					GD.Print(b.Name, " is in cover (", los_ct, "/8)");
+				{	GD.Print(b.Name, " is in cover (", los_ct, "/8)");
 				}
 			}
 			los_get_collisions = false;
@@ -112,13 +98,12 @@ public partial class BSUnit : Node3D
 		{
 			foreach(BSModel b in tgtModels)
 			{
-				tgtLosObj = b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
+				tgtLosObj = b.myLines;//b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
 				foreach (RayCast3D r in tgtLosObj)
 				{
-					r.TargetPosition = eyeCaster.GlobalPosition - r.GlobalPosition;
+					r.TargetPosition = eyeSource.GlobalPosition - r.GlobalPosition;
 				}	
 			}
-			
 			calculateLOS = false;
 			los_get_collisions = true;
 		}
@@ -126,9 +111,9 @@ public partial class BSUnit : Node3D
 
 	private void GetLOS(BSModel src_m, BSUnit target_unit)
 	{
-		eyeCaster = src_m.GetNode<Node>("battlenun-body").GetNode<RayCast3D>("EyeCaster");
+		eyeSource = src_m.myEyes;//GetNode<Node>("battlenun-body").GetNode<RayCast3D>("eyeSource");
 		unitTgt = target_unit;
-		tgtModels = unitTgt.FindChildren("*", "Sprite3D");
+		tgtModels = unitTgt.myUnits; //unitTgt.FindChildren("*", "Sprite3D");
 		// make all models look at layer 5, but dont move them there yet 
 		//foreach(BSModel b in tgtModels)
 		//{
