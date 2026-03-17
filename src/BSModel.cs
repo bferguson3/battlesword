@@ -49,14 +49,15 @@ public partial class BSModel : Sprite3D
 
 	public void MouseEnter()
 	{
-		if(!myUnit.isHighlighted)
-		{
-			if(!flashingColor)
-				myUnit.Flash(new Color("#008800"));
-			else
-				targetClr = new Color("#008800");
-			myUnit.isHighlighted = true;
-		}
+		if(myUnit.isSelectable)
+			if(!myUnit.isHighlighted)
+			{
+				if(!flashingColor)
+					myUnit.Flash(new Color("#008800"));
+				else
+					targetClr = new Color("#008800");
+				myUnit.isHighlighted = true;
+			}
 	}
 
 	public void MouseExit()
@@ -64,7 +65,6 @@ public partial class BSModel : Sprite3D
 		if(myUnit.isHighlighted)
 		{
 			myUnit.isHighlighted = false;
-			//myUnit.FlashOff();
 		}
 	}
 
@@ -86,6 +86,7 @@ public partial class BSModel : Sprite3D
 	public void FlashOff()
 	{
 		flashingColor = false;
+		colorMod = new Color(0, 0, 0);
 		Modulate = mySavedColor;
 	}
 	
@@ -127,11 +128,13 @@ public partial class BSModel : Sprite3D
 		
 		if(inCoverDisplay)
 		{	// flash me grey 
+		// FIX ME !!!
 			if(!colorDown){
 				colorMult -= (float)delta * 0.25f;
 				if (colorMult > 0.75f)
 				{
-					Modulate = new Color(mySavedColor.R * colorMult, mySavedColor.G *colorMult, mySavedColor.B * colorMult);
+					Color _c = (mySavedColor + colorMod) * colorMult;
+					Modulate = _c;
 				}
 				else 
 					colorDown = true;
@@ -141,7 +144,8 @@ public partial class BSModel : Sprite3D
 				colorMult += (float)delta * 0.25f;
 				if (colorMult < 1.0f)
 				{
-					Modulate = new Color(mySavedColor.R * colorMult, mySavedColor.G *colorMult, mySavedColor.B * colorMult);
+					Color _c = (mySavedColor + colorMod) * colorMult;
+					Modulate = _c;
 				}else 
 					colorDown = false;
 			}

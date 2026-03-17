@@ -1,7 +1,7 @@
 using Godot;
 
 
-public partial class BSAbility : Node
+public partial class BSAbility : Node3D
 {
 	public enum BSType { Weapon, Character };
 

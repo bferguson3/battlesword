@@ -2,7 +2,7 @@ using Godot;
 
 using System.Collections.Generic;
 
-public partial class BSLoadout : Node
+public partial class BSLoadout : Node3D
 {
 	public string name;
 	public int range;

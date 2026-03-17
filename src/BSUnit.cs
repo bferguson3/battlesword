@@ -34,20 +34,28 @@ public partial class BSUnit : Node3D
 	public bool hasLeader = false;
 	public BSUnit partnerUnit = null;
 	
+	
 	public int power = 1; // Q
-	public int shields = 1; // 1 is equivalent to 6+. 	2	3	4	5	// nothing has 6.
+	public int def = 1; // 1 is equivalent to 6+. 	2	3	4	5	// nothing has 6.
 	// 													5+	4+	3+	2+
-	public int cur_hearts = 10;
-	public int max_hearts = 10; // this is toughness or # of models in this unit. 
+	public int unitCt = 10;		// how many models in this unit?
+	public int heartsPerModel = 1; // 
+	public int[] unitHearts; // how many hearts per unit? (if tough keyword, else 1)
+	
 	public int move = 6; // lowest probably 6, maybe 4, max 20ish
 	
 	public List<BSLoadout> loadouts = new List<BSLoadout>();
 	public List<BSAbility> abilities = new List<BSAbility>();
 
+	public bool isSelectable = false;
 	/// 
 
 	public override void _Ready()
 	{
+		// init health array 
+		unitHearts = new int[unitCt];
+		for(int a = 0; a < unitCt; a++) unitHearts[a] = heartsPerModel;
+
 		/*
 		//abilities.Add(new BSAbility());
 		//abilities[0].abilityType = BSAbility.AbilityType.Blast;
