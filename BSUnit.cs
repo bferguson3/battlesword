@@ -80,9 +80,11 @@ public partial class BSUnit : Node3D
 			{
 				tgtLosObj = b.myLines; //b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
 				int los_ct = 8;
-				foreach (RayCast3D r in tgtLosObj)
+				foreach (RayCast3D r in tgtLosObj){
 					if (!r.IsColliding())
 						los_ct--;
+					r.TargetPosition = Vector3.Zero;
+				}
 							
 				if(los_ct == 8)
 				{	GD.Print(b.Name, " is hidden");
@@ -94,16 +96,8 @@ public partial class BSUnit : Node3D
 			}
 			los_get_collisions = false;
 		}
-		if(calculateLOS)
-		{
-			foreach(BSModel b in tgtModels)
-			{
-				tgtLosObj = b.myLines;//b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
-				foreach (RayCast3D r in tgtLosObj)
-				{
-					r.TargetPosition = eyeSource.GlobalPosition - r.GlobalPosition;
-				}	
-			}
+		if(calculateLOS) // idiotic "kill one cycle" process
+		{				// because we have to wait for TargetPosition to update
 			calculateLOS = false;
 			los_get_collisions = true;
 		}
@@ -121,6 +115,14 @@ public partial class BSUnit : Node3D
 		//}
 		tgtLosObj = null;
 		calculateLOS = true;
+		foreach(BSModel b in tgtModels)
+		{
+			tgtLosObj = b.myLines;//b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
+			foreach (RayCast3D r in tgtLosObj)
+			{
+				r.TargetPosition = eyeSource.GlobalPosition - r.GlobalPosition;
+			}	
+		}
 	}
 
 
