@@ -108,7 +108,7 @@ public class Dice
 		Refresh();
 		return l;
 	}
-	public Dice GrabEqualTo(int e)
+	public Dice GrabEqualTo(int e, bool keep=false)
 	{
         Dice _d = new Dice();
         foreach (int r in results){
@@ -117,9 +117,10 @@ public class Dice
 			}
 		}
 		_d.ct = _d.results.Count; // get correct new number
+		if(!keep) RemoveEqual(e);
 		return _d;
 	}
-	public Dice GrabLessThan(int e)
+	public Dice GrabLessThan(int e, bool keep=false)
 	{
         Dice _d = new Dice();
         foreach (int r in results){
@@ -128,9 +129,10 @@ public class Dice
 			}
 		}
 		_d.ct = _d.results.Count; // get correct new number
+		if(!keep) RemoveLessThan(e);
 		return _d;
 	}
-	public Dice GrabUps(int e)
+	public Dice GrabUps(int e, bool keep=false)
 	{
         Dice _d = new Dice();
         foreach (int r in results){
@@ -139,6 +141,7 @@ public class Dice
 			}
 		}
 		_d.ct = _d.results.Count; // get correct new number
+		if(!keep) RemoveMoreThanOrEqual(e);
 		return _d;
 	}
 	//
