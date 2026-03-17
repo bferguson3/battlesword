@@ -20,6 +20,7 @@ public partial class BSUnit : Node3D
 
 	int tgtModelsCounted;
 	bool los_get_collisions;
+	public bool isHighlighted;
 	
 	[Export]
 	public bool processLineOfSight;
@@ -59,7 +60,7 @@ public partial class BSUnit : Node3D
 		// TODO: When checking LOS on target sprite,
 		//. iterate through all 8 of its LOS spots 
 		//. 
-		processLineOfSight = true;
+		
 		myUnits = FindChildren("*", "Sprite3D");
 		foreach (BSModel s in myUnits)
 		{
@@ -70,6 +71,18 @@ public partial class BSUnit : Node3D
 		{
 			s.FlipH = FlipX;
 		}
+	}
+
+	public void Flash(Color c)
+	{
+		foreach(BSModel s in myUnits)
+			s.Flash(c);
+		
+	}
+	public void FlashOff()
+	{
+		foreach(BSModel s in myUnits)
+			s.FlashOff();
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -88,10 +101,12 @@ public partial class BSUnit : Node3D
 							
 				if(los_ct == 8)
 				{	GD.Print(b.Name, " is hidden");
+					b.inCoverDisplay = true;
 				} else if(los_ct == 0)
 				{	GD.Print(b.Name, " is fully visible");
 				} else
 				{	GD.Print(b.Name, " is in cover (", los_ct, "/8)");
+					b.inCoverDisplay = true;
 				}
 			}
 			los_get_collisions = false;
@@ -129,9 +144,10 @@ public partial class BSUnit : Node3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if(processLineOfSight && Name == "bnun unit")
+		if(processLineOfSight)
 		{ // should only need 1 frame trigger 
 			processLineOfSight = false;
+			// make sure we loop this PROPERLY! might have to wait!
 			GetLOS(GetNode<BSModel>("battlenun5"), GetNode<BSUnit>("/root/Node3D/bnun unit2"));
 		}
 		

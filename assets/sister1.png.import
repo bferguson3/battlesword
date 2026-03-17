@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xafdiu28uyas"
-path.s3tc="res://.godot/imported/groundsel.png-ac1cbf0e35ac91c8160a151a1b7c7d22.s3tc.ctex"
+uid="uid://xbdki2tj4ogs"
+path="res://.godot/imported/sister1.png-28f788033bec54428cdbf1b29ec67838.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://groundsel.png"
-dest_files=["res://.godot/imported/groundsel.png-ac1cbf0e35ac91c8160a151a1b7c7d22.s3tc.ctex"]
+source_file="res://assets/sister1.png"
+dest_files=["res://.godot/imported/sister1.png-28f788033bec54428cdbf1b29ec67838.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

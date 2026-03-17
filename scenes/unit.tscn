@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://83at0xp8nqmk"]
 
-[ext_resource type="PackedScene" uid="uid://d75g7d4bm307" path="res://model.tscn" id="1_btf8p"]
-[ext_resource type="Script" uid="uid://d0suofj6snmt" path="res://BSUnit.cs" id="1_ctwoc"]
+[ext_resource type="PackedScene" uid="uid://d75g7d4bm307" path="res://scenes/model.tscn" id="1_btf8p"]
+[ext_resource type="Script" uid="uid://d0suofj6snmt" path="res://src/BSUnit.cs" id="1_ctwoc"]
 
 [node name="bnun unit" type="Node3D"]
 script = ExtResource("1_ctwoc")

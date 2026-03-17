@@ -1,6 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c1p7u7h1r0wbx"]
-
-[ext_resource type="Script" uid="uid://bwu6x0wwykv83" path="res://BSAbility.cs" id="1_g5ko2"]
-
-[resource]
-script = ExtResource("1_g5ko2")

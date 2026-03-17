@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://qql4yv3vugbc"]
 
-[ext_resource type="PackedScene" uid="uid://83at0xp8nqmk" path="res://unit.tscn" id="1_snlis"]
-[ext_resource type="Script" uid="uid://cpwe58xybugst" path="res://mainCamera.gd" id="2_0hval"]
+[ext_resource type="PackedScene" uid="uid://83at0xp8nqmk" path="res://scenes/unit.tscn" id="1_snlis"]
+[ext_resource type="Script" uid="uid://cpwe58xybugst" path="res://src/mainCamera.gd" id="2_0hval"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0hval"]
 
@@ -24,7 +24,7 @@ mesh = SubResource("PlaneMesh_0hval")
 surface_material_override/0 = SubResource("StandardMaterial3D_snlis")
 
 [node name="BattleCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 2, 1)
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 3, 3.42)
 environment = SubResource("Environment_0hval")
 script = ExtResource("2_0hval")
 
