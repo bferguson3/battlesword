@@ -13,6 +13,15 @@ public partial class BSModel : Sprite3D
 	private bool colorDown;
 	private Color mySavedColor;
 
+	public void SetCollisionMask(int layer, bool v)
+	{
+		
+		myCollider.SetCollisionMaskValue(layer, v);
+	}
+	public void SetCollisionLayer(int l, bool v)
+	{
+		myCollider.SetCollisionLayerValue(l, v);
+	}
 	
 	public override void _Ready()
 	{

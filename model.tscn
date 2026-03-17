@@ -13,9 +13,11 @@ texture = ExtResource("1_bctr2")
 script = ExtResource("2_rka1o")
 
 [node name="battlenun-body" type="CharacterBody3D" parent="."]
+collision_layer = 2
 
 [node name="EyeCaster" type="RayCast3D" parent="battlenun-body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.088, 0)
+collision_mask = 17
 
 [node name="battlenun-collider" type="CollisionShape3D" parent="battlenun-body"]
 transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 0, 0, 0)
@@ -25,32 +27,32 @@ shape = SubResource("CylinderShape3D_c5bv7")
 
 [node name="TopLeft" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.383, 0.50950384, 0)
-debug_shape_thickness = 1
+collision_mask = 17
 
 [node name="TopRight" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.40600002, 0.5300413, 0)
-debug_shape_thickness = 1
+collision_mask = 17
 
 [node name="TopBack" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.48322514, -0.385)
-debug_shape_thickness = 1
+collision_mask = 17
 
 [node name="TopFront" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.488, 0.429)
-debug_shape_thickness = 1
+collision_mask = 17
 
 [node name="BottomLeft" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.5282704, -0.4416706, 0)
-debug_shape_thickness = 1
+collision_mask = 17
 
 [node name="BottomRight" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.41998923, -0.4808595, 0)
-debug_shape_thickness = 1
+collision_mask = 17
 
 [node name="BottomBack" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.4946836, -0.37922218)
-debug_shape_thickness = 1
+collision_mask = 17
 
 [node name="BottomFront" type="RayCast3D" parent="battlenun-body/battlenun-collider/LOSNodes"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.46791026, 0.4669685)
-debug_shape_thickness = 1
+collision_mask = 17

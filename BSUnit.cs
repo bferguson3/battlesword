@@ -22,31 +22,32 @@ public partial class BSUnit : Node3D
 	Godot.Collections.Array<Node> myUnits;
 
 	int tgtModelsCounted;
-	bool los_step_two;
-	bool LOScomplete;
-	//int positionsCounted;
+	bool los_get_collisions;
+	
 	[Export]
-	public bool reset_los_flag;
+	public bool processLineOfSight;
 
+	///
 	/// Game Stat Stuff 
 	/// 
-	public string unitName;
+	public string unitName = "UnitName";
 
-	public bool isLeader;
-	public bool hasLeader;
-	public BSUnit partnerUnit;
+	public bool isLeader = false;
+	public bool hasLeader = false;
+	public BSUnit partnerUnit = null;
 	
-	public int power;
-	public int shields;
-	public int cur_hearts;
-	public int max_hearts; // this is toughness or # of models in this unit. 
+	public int power = 1; // Q
+	public int shields = 1; // 1 is equivalent to 6+. 	2	3	4	5	// nothing has 6.
+	// 													5+	4+	3+	2+
+	public int cur_hearts = 10;
+	public int max_hearts = 10; // this is toughness or # of models in this unit. 
+	public int move = 6; // lowest probably 6, maybe 4 
 	
 	public List<BSLoadout> loadouts = new List<BSLoadout>();
 	public List<BSAbility> abilities = new List<BSAbility>();
 
 	/// 
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		/*
@@ -62,8 +63,7 @@ public partial class BSUnit : Node3D
 		// TODO: When checking LOS on target sprite,
 		//. iterate through all 8 of its LOS spots 
 		//. 
-		los_step_two = false;
-		
+		processLineOfSight = true;
 		myUnits = FindChildren("*", "Sprite3D");
 		foreach (BSModel s in myUnits)
 		{
@@ -81,131 +81,71 @@ public partial class BSUnit : Node3D
 
     public override void _PhysicsProcess(double delta)
     {
-		if (los_step_two)
+		
+		if(los_get_collisions)
 		{
-			foreach(var model in tgtModels){
-				modelTgt = (BSModel)model;
-				tgtLosObj = modelTgt.GetNode<Node3D>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
-				var ct = 8;
+			foreach(BSModel b in tgtModels)
+			{
+				tgtLosObj = b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
+				int los_ct = 8;
 				foreach (RayCast3D r in tgtLosObj)
 				{
-					if(r.IsColliding())
+					if (!r.IsColliding())
 					{
-						ct -= 1;
-					}
-					r.TargetPosition = new Vector3(0, 0, 0);
+						los_ct--;
+					}		
 				}
-				if(ct == 8)
-					GD.Print(modelTgt.Name, " is fully visible");
-				else if(ct < 8)
+				if(los_ct == 8)
 				{
-					modelTgt.inCoverDisplay = true;
-					if(ct == 0)
-						GD.Print(modelTgt.Name, " is hidden");
-					else
-						GD.Print(modelTgt.Name, "is in cover (", 8-ct, " of 8)");
-				}
-				
-				los_step_two = false;
-				calculateLOS = false;
-				foreach(BSModel t in tgtModels)
+					GD.Print(b.Name, " is hidden");
+				} else if(los_ct == 0)
 				{
-					t.ColliderOn();
+					GD.Print(b.Name, " is fully visible");
+				} else
+				{
+					GD.Print(b.Name, " is in cover (", los_ct, "/8)");
 				}
-				foreach(BSModel t in myUnits)
-					t.ColliderOn();
-				LOScomplete = true;
 			}
+			los_get_collisions = false;
 		}
-		if(calculateLOS){
-			if (unitTgt != null)
+		if(calculateLOS)
+		{
+			foreach(BSModel b in tgtModels)
 			{
-				if(modelTgt != null)
+				tgtLosObj = b.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
+				foreach (RayCast3D r in tgtLosObj)
 				{
-					foreach (RayCast3D r in tgtLosObj)
-					{
-						r.TargetPosition = eyeCaster.GlobalPosition - r.GlobalPosition;
-					}
-					modelTgt.ColliderOff();
-					tgtModelsCounted++;
-					if(tgtModelsCounted >= tgtModels.Count)
-					{
-						modelTgt = null;
-						los_step_two = true;
-						// now that everyone is looking at you, you can count all the collisions
-						//GD.Print("done");
-					}
-					else
-					{
-						modelTgt = (BSModel)tgtModels[tgtModelsCounted];
-						modelTgt.ColliderOn();
-						tgtLosObj = modelTgt.GetNode<Node3D>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
-					}
-				}
+					r.TargetPosition = eyeCaster.GlobalPosition - r.GlobalPosition;
+				}	
 			}
+			
+			calculateLOS = false;
+			los_get_collisions = true;
 		}
     }
 
 	private void GetLOS(BSModel src_m, BSUnit target_unit)
 	{
-		//if (src_m == null)
-		//	src_m =  // for active model only 
 		eyeCaster = src_m.GetNode<Node>("battlenun-body").GetNode<RayCast3D>("EyeCaster");
-		foreach (BSModel b in myUnits)
-		{
-			b.ColliderOff();
-		}
-		src_m.ColliderOn();
-
 		unitTgt = target_unit;
-
-		if (tgtModels == null){
-			
-			tgtModels = unitTgt.FindChildren("*", "Sprite3D");
-			tgtModelsCounted = 0;
-			
-			foreach(BSModel t in tgtModels)
-			{
-				t.ColliderOff();
-			}
-
-			tgtLosObj = null;
-			modelTgt = (BSModel)tgtModels[tgtModelsCounted];
-			modelTgt.ColliderOn();
-			tgtLosObj = modelTgt.GetNode<Node>("battlenun-body/battlenun-collider/LOSNodes").GetChildren();
-			calculateLOS = true;
-		}
+		tgtModels = unitTgt.FindChildren("*", "Sprite3D");
+		// make all models look at layer 5, but dont move them there yet 
+		//foreach(BSModel b in tgtModels)
+		//{
+		//	b.SetCollisionMask(5, true);
+		//}
+		tgtLosObj = null;
+		calculateLOS = true;
 	}
 
-	public void ResetLOS()
-	{
-		LOScomplete = false;
-		tgtModels = null;
-		calculateLOS = false;
-		los_step_two = false;
-	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		// HOW IT WORKS NOW: 
-		/// If LOScomplete is TRUE, we are NOT performing any LOS calculations.
-		///  Set reset_los_flag to true, and this will set all flags next frame
-		///  to re-process the physics. Then wait for LOScomplete to be true,
-		///  and you will know the new LOS data has been updated.
-		if(reset_los_flag)
-		{
-			reset_los_flag = false;
-			ResetLOS();
-		}
-		if(LOScomplete == false){
-			if (Name == "bnun unit"){ // Make sure to filter this properly
-				GetLOS(GetNode<BSModel>("battlenun5"), GetNode<BSUnit>("/root/Node3D/bnun unit2"));
-			}
-		} 
-		else
-		{	// "I have completed my LOS calc."
-			
+		if(processLineOfSight && Name == "bnun unit")
+		{ // should only need 1 frame trigger 
+			processLineOfSight = false;
+			GetLOS(GetNode<BSModel>("battlenun5"), GetNode<BSUnit>("/root/Node3D/bnun unit2"));
 		}
 		
 	}
