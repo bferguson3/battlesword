@@ -110,10 +110,7 @@ public class Dice
 	}
 	public Dice GrabEqualTo(int e)
 	{
-        Dice _d = new Dice
-        {
-            ct = ct
-        };
+        Dice _d = new Dice();
         foreach (int r in results){
 			if (r == e){
 				_d.results.Add(r);
@@ -125,7 +122,6 @@ public class Dice
 	public Dice GrabLessThan(int e)
 	{
         Dice _d = new Dice();
-        _d.ct = ct;
         foreach (int r in results){
 			if (r < e){
 				_d.results.Add(r);
@@ -137,7 +133,6 @@ public class Dice
 	public Dice GrabUps(int e)
 	{
         Dice _d = new Dice();
-        _d.ct = ct;
         foreach (int r in results){
 			if (r >= e){
 				_d.results.Add(r);
