@@ -51,11 +51,11 @@ transform = Transform3D(0.36643633, 0, -0.9304431, 0, 1, 0, 0.9304431, 0, 0.3664
 mesh = SubResource("PrismMesh_0hval")
 
 [node name="bnun unit" parent="." unique_id=973964184 instance=ExtResource("1_snlis")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9918838, 0, -0.75975573)
+transform = Transform3D(0.78, 0, 0, 0, 0.78, 0, 0, 0, 0.78, -2.9918838, 0, -0.75975573)
 _baseColor = Color(0.50065374, 0.66175973, 1, 1)
 
 [node name="bnun unit2" parent="." unique_id=1384347299 instance=ExtResource("1_snlis")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28093982, 0, 0.61461127)
+transform = Transform3D(0.78, 0, 0, 0, 0.78, 0, 0, 0, 0.78, 0.28093982, 0, 0.61461127)
 _baseColor = Color(1, 0.627451, 0.57254905, 1)
 FlipX = true
 

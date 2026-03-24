@@ -1,0 +1,290 @@
+{
+    "id": "CizSXv_tQFPq",
+    "userId": "zvoi54QmrZF",
+    "details": {
+        "id": "CizSXv_tQFPq",
+        "list": {
+            "id": "CizSXv_tQFPq",
+            "key": "y9sARhKJ68u8I-sugpUew",
+            "name": "Blessed Sisters",
+            "isCloud": false,
+            "forceOrg": true,
+            "modified": "2026-03-23T16:26:02.633Z",
+            "gameSystem": "gf",
+            "modelCount": 28,
+            "simpleMode": false,
+            "description": "",
+            "pointsLimit": 2000,
+            "campaignMode": false,
+            "cloudModified": "2026-03-23T16:26:02.633Z",
+            "narrativeMode": false,
+            "activationCount": 7
+        },
+        "armyId": "7oi8zeiqfamiur21",
+        "armyIds": [
+            "7oi8zeiqfamiur21"
+        ],
+        "armyName": "Blessed Sisters",
+        "modified": "2026-03-23T16:26:02.631Z",
+        "favourite": false,
+        "gameSystem": "gf",
+        "listPoints": 2000,
+        "armyFaction": null,
+        "saveVersion": 3,
+        "armyVersions": [
+            {
+                "armyId": "7oi8zeiqfamiur21",
+                "version": "3.5.2"
+            }
+        ]
+    },
+    "list": {
+        "id": "CizSXv_tQFPq",
+        "key": "y9sARhKJ68u8I-sugpUew",
+        "name": "Blessed Sisters",
+        "units": [
+            {
+                "id": "JzHY_1g",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": false,
+                "joinToUnit": null,
+                "selectionId": "HgdvL",
+                "selectedUpgrades": [
+                    {
+                        "optionId": "EkcOHi8t",
+                        "upgradeId": "Unu8KAHW",
+                        "instanceId": "-GItYacjk"
+                    },
+                    {
+                        "optionId": "dzxTx",
+                        "upgradeId": "arzM7",
+                        "instanceId": "5kXY-Yqrw"
+                    },
+                    {
+                        "optionId": "bD-v1",
+                        "upgradeId": "x10Rh",
+                        "instanceId": "N4n7lsYPG"
+                    },
+                    {
+                        "optionId": "LrzRO",
+                        "upgradeId": "cGbNf",
+                        "instanceId": "T3f5BF8XJ"
+                    }
+                ]
+            },
+            {
+                "id": "8LxKCD7",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": false,
+                "joinToUnit": null,
+                "selectionId": "Heqpx",
+                "selectedUpgrades": []
+            },
+            {
+                "id": "2TXWi3B",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": false,
+                "joinToUnit": "AQOjJ",
+                "selectionId": "uMX6M",
+                "selectedUpgrades": [
+                    {
+                        "optionId": "sdRHDdbO",
+                        "upgradeId": "mIKx-g_2",
+                        "instanceId": "wZ6ctysIg"
+                    },
+                    {
+                        "optionId": "zVlwodg",
+                        "upgradeId": "QiaDUvj",
+                        "instanceId": "nJeNqgUpe"
+                    }
+                ]
+            },
+            {
+                "id": "VHKN-IZ",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": false,
+                "joinToUnit": null,
+                "selectionId": "AQOjJ",
+                "selectedUpgrades": [
+                    {
+                        "optionId": "-xtO-qv",
+                        "upgradeId": "v6bcNOr",
+                        "instanceId": "_eiE6pU1u"
+                    }
+                ]
+            },
+            {
+                "id": "0Bc4px2",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": true,
+                "joinToUnit": null,
+                "selectionId": "8xRqD",
+                "selectedUpgrades": [
+                    {
+                        "optionId": "3__0scQn",
+                        "upgradeId": "dz6vC7ts",
+                        "instanceId": "4SMxwFBOh"
+                    },
+                    {
+                        "optionId": "tq9LjrIy",
+                        "upgradeId": "nRd7AXBw",
+                        "instanceId": "lQsy_naKH"
+                    },
+                    {
+                        "optionId": "hfylDEE",
+                        "upgradeId": "rwrkjbz",
+                        "instanceId": "FGrzA-CFB"
+                    },
+                    {
+                        "optionId": "tAcKy",
+                        "upgradeId": "ta_zE",
+                        "instanceId": "xZdEPdxt1"
+                    }
+                ]
+            },
+            {
+                "id": "0Bc4px2",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": true,
+                "joinToUnit": "8xRqD",
+                "selectionId": "E0N0x",
+                "selectedUpgrades": [
+                    {
+                        "optionId": "hfylDEE",
+                        "upgradeId": "rwrkjbz",
+                        "instanceId": "qPc9zN7RT"
+                    },
+                    {
+                        "optionId": "bqAyz",
+                        "upgradeId": "ta_zE",
+                        "instanceId": "2gD2pj9A6"
+                    }
+                ]
+            },
+            {
+                "id": "G-oYVEJ",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": false,
+                "joinToUnit": null,
+                "selectionId": "SwzGT",
+                "selectedUpgrades": [
+                    {
+                        "optionId": "XUQwm",
+                        "upgradeId": "8KkTH",
+                        "instanceId": "A2ymufglk"
+                    },
+                    {
+                        "optionId": "dorQcCT",
+                        "upgradeId": "29r4mTF",
+                        "instanceId": "peu3JXbDC"
+                    }
+                ]
+            },
+            {
+                "id": "LdiGRSV",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": false,
+                "joinToUnit": null,
+                "selectionId": "RHAeI",
+                "selectedUpgrades": [
+                    {
+                        "optionId": "GSfg_",
+                        "upgradeId": "Vkoo-Cw",
+                        "instanceId": "DUDiskxEi"
+                    },
+                    {
+                        "optionId": "rYWP8",
+                        "upgradeId": "572Ww",
+                        "instanceId": "1XLgLDclG"
+                    }
+                ]
+            },
+            {
+                "id": "W-crN7f",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": false,
+                "joinToUnit": "EPLjZ",
+                "selectionId": "9mj-3",
+                "selectedUpgrades": [
+                    {
+                        "optionId": "WDVDp",
+                        "upgradeId": "5z9UHa0",
+                        "instanceId": "AoU0QLcVA"
+                    },
+                    {
+                        "optionId": "idFlTwuHpT",
+                        "upgradeId": "9LBlxtK",
+                        "instanceId": "_Gm2LVnQH"
+                    },
+                    {
+                        "optionId": "xJgwmPHlUC",
+                        "upgradeId": "mIKx-g_2",
+                        "instanceId": "Ez1wZyg6N"
+                    },
+                    {
+                        "optionId": "KXgY-",
+                        "upgradeId": "QiaDUvj",
+                        "instanceId": "ZDR-rQK2C"
+                    }
+                ]
+            },
+            {
+                "id": "S9Oua8O",
+                "xp": 0,
+                "notes": null,
+                "armyId": "7oi8zeiqfamiur21",
+                "traits": [],
+                "combined": false,
+                "joinToUnit": null,
+                "selectionId": "EPLjZ",
+                "selectedUpgrades": []
+            }
+        ],
+        "isCloud": false,
+        "forceOrg": true,
+        "modified": "2026-03-23T16:26:02.633Z",
+        "gameSystem": "gf",
+        "modelCount": 28,
+        "simpleMode": false,
+        "description": "",
+        "pointsLimit": 2000,
+        "campaignMode": false,
+        "cloudModified": "2026-03-23T16:26:02.633Z",
+        "narrativeMode": false,
+        "activationCount": 7
+    },
+    "modifiedAt": "2026-03-23T16:26:02.751Z",
+    "community": false,
+    "gameSystem": "gf",
+    "forceOrg": true,
+    "popularity": 0,
+    "downvotes": 0,
+    "armyUid": "7oi8zeiqfamiur21"
+}

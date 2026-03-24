@@ -74,8 +74,8 @@ public class Dice
         };
         for (int a = 0; a < da.ct; a++) nd.results.Add(da.results[a]);
 		for(int b = 0; b < db.ct; b++) nd.results.Add(db.results[b]);
-		nd.Total();
-		nd.GetCrits();
+		//nd.Total();
+		//nd.GetCrits();
 		
 		return nd;
 	}
@@ -84,8 +84,8 @@ public class Dice
 	{
 		ones = 0;
 		foreach(int v in results){ if (v == 1) { ones++; } }
-		GetCrits();
-		Total();
+		//GetCrits();
+		//Total();
 	}
 
 	//

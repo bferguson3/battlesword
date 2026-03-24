@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public partial class BSUnit : Node3D
@@ -8,6 +9,10 @@ public partial class BSUnit : Node3D
 	[Export]
 	public bool FlipX;
 
+	public Godot.Collections.Array<Node> myUnits; // list of my children 
+
+// I think we can avoid assigning this - these just need a complete BSModel scene to work, which we can do later.
+// Line of sight shit. eyes and rays are set per unit, so... 
 	RayCast3D eyeSource;
 	BSUnit unitTgt;
 	BSModel modelTgt;
@@ -16,16 +21,15 @@ public partial class BSUnit : Node3D
 	Godot.Collections.Array<Node> tgtModels;
 	Godot.Collections.Array<Node> tgtLosObj;
 
-	public Godot.Collections.Array<Node> myUnits;
-
 	int tgtModelsCounted;
 	bool los_get_collisions;
 	public bool isHighlighted;
 	
 	[Export]
 	public bool processLineOfSight;
+//
 
-	///
+///
 	/// Game Stat Stuff 
 	/// 
 	public string unitName = "UnitName";
@@ -33,14 +37,15 @@ public partial class BSUnit : Node3D
 	public bool isLeader = false;
 	public bool hasLeader = false;
 	public BSUnit partnerUnit = null;
-	
+	public string uid = "";
+	public int cost = 0;
+	public int baseSize = 32;
 	
 	public int power = 1; // Q
-	public int def = 1; // 1 is equivalent to 6+. 	2	3	4	5	// nothing has 6.
-	// 													5+	4+	3+	2+
+	public int def = 1; // 1 is equivalent to 6+. 	2	3	4	5	   // nothing has 6 (1+)
+	// 												5+	4+	3+	2+     // so 7 - army val.
 	public int unitCt = 10;		// how many models in this unit?
 	public int heartsPerModel = 1; // 
-	public int[] unitHearts; // how many hearts per unit? (if tough keyword, else 1)
 	
 	public int move = 6; // lowest probably 6, maybe 4, max 20ish
 	
@@ -48,14 +53,41 @@ public partial class BSUnit : Node3D
 	public List<BSAbility> abilities = new List<BSAbility>();
 
 	public bool isSelectable = false;
-	/// 
+///
+/// 
+	public BSUnit InstantiateMe()
+	{
+		BSUnit b = new BSUnit();
+		b._baseColor = this._baseColor;
+		b.FlipX = this.FlipX;
+		//b.myUnits = // we dont assign this now; we instantiate models as we need them later
+		b.unitName = this.unitName;
+		//b.isLeader = this.isLeader;
+		//b.hasLeader = this.hasLeader;
+		b.uid = this.uid;
+		b.cost = this.cost;
+		b.baseSize = this.baseSize;
+		b.power = this.power;
+		b.def = this.def;
+		b.unitCt = this.unitCt;
+		b.heartsPerModel = this.heartsPerModel;
+		b.move = this.move;
+		// TODO DUPLICATE LOADOUTS? 
+		// TODO DUPLICATE ABILITIES? 
+		// think about this when you are awake 
+		
+		return b;
+	}
+	// Fixme
+	public List<string> items = new List<string>();
+	public List<string> rules = new List<string>();
+	//public List<string> weapons = new List<string>();
+	public List<string> upgrades = new List<string>();
+/// 
 
 	public override void _Ready()
 	{
-		// init health array 
-		unitHearts = new int[unitCt];
-		for(int a = 0; a < unitCt; a++) unitHearts[a] = heartsPerModel;
-
+		
 		/*
 		//abilities.Add(new BSAbility());
 		//abilities[0].abilityType = BSAbility.AbilityType.Blast;
@@ -80,6 +112,7 @@ public partial class BSUnit : Node3D
 			s.FlipH = FlipX;
 		}
 	}
+
 
 	public void Flash(Color c)
 	{

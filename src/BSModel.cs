@@ -9,6 +9,10 @@ public partial class BSModel : Sprite3D
 
 	public BSUnit myUnit;
 
+	public BSLoadout myModelLoadout;
+	public int currentHearts;
+	public int maxHearts;
+
 	[Export]
 	public bool inCoverDisplay;
 	private float colorMult;

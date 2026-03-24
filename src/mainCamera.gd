@@ -41,10 +41,10 @@ func _process(delta: float) -> void:
 		rotation += Vector3(0.0, delta*rotateSpeed, 0.0)
 	elif Input.is_action_pressed("camera_pan_right"):
 		rotation += Vector3(0.0, -1.0*delta*rotateSpeed, 0.0)
-	if Input.is_action_pressed("camera_up"):
+	if Input.is_action_pressed("camera_down"):
 		if global_position.y < 3.0:
 			position += global_transform.basis.y.normalized() * delta * moveSpeed
-	elif Input.is_action_pressed("camera_down"):
+	elif Input.is_action_pressed("camera_up"):
 		if global_position.y > 0.5:
 			position += global_transform.basis.y.normalized() * delta * moveSpeed * -1.0
 	
