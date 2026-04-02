@@ -10,6 +10,10 @@ var rot_last_pos = Vector2(0,0)
 var up_velocity = 0
 
 func _ready() -> void:
+	#var spr = get_node("UISprite")
+	#var ui = get_node("/root/Battlefield/UI")
+	#var vp = ui.get_node("SubViewport")
+	#spr.texture = vp.get_texture()
 	pass 
 	
 func _input(event: InputEvent) -> void:

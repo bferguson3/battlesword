@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://qql4yv3vugbc"]
 
-[ext_resource type="PackedScene" uid="uid://83at0xp8nqmk" path="res://scenes/unit.tscn" id="1_snlis"]
-[ext_resource type="Script" uid="uid://dwny3v76tkcg5" path="res://src/GameMaster.cs" id="1_t6wk2"]
-[ext_resource type="Script" uid="uid://cpwe58xybugst" path="res://src/mainCamera.gd" id="2_0hval"]
+[ext_resource type="Script" uid="uid://dwny3v76tkcg5" path="res://src/GameMaster.cs" id="1_irgk3"]
+[ext_resource type="Script" uid="uid://cpwe58xybugst" path="res://src/mainCamera.gd" id="2_q76pr"]
+[ext_resource type="PackedScene" uid="uid://das0fndeyjinj" path="res://scenes/ui.tscn" id="3_yer08"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0hval"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snlis"]
-albedo_color = Color(0.16445974, 0.16445976, 0.16445974, 1)
+albedo_color = Color(0.4456672, 0.37776682, 0.24216294, 1)
 
 [sub_resource type="Environment" id="Environment_0hval"]
 background_mode = 1
@@ -18,24 +18,26 @@ background_mode = 1
 data = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, -0.5, 0, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="Battlefield" type="Node3D" unique_id=682491998]
-script = ExtResource("1_t6wk2")
+script = ExtResource("1_irgk3")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=356165313]
 transform = Transform3D(7.487101, 0, 0, 0, 0.99828017, 0, 0, 0, 5.490541, 0, 0, 0)
 mesh = SubResource("PlaneMesh_0hval")
 surface_material_override/0 = SubResource("StandardMaterial3D_snlis")
+metadata/_edit_lock_ = true
 
 [node name="BattleCamera" type="Camera3D" parent="." unique_id=1880119057]
-transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 3, 3.42)
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 2.4171534, 2.0334852)
 environment = SubResource("Environment_0hval")
-script = ExtResource("2_0hval")
+script = ExtResource("2_q76pr")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=271435076]
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=271435076]
 transform = Transform3D(1, 0, 0, 0, 0.43235326, 0.9017043, 0, -0.9017043, 0.43235326, 0, 3.740777, 0)
 
 [node name="terrain" type="MeshInstance3D" parent="." unique_id=1663078251]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020687819, -2.3841858e-07, -0.026786566)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0085671, 0.09299731, -0.018266916)
 mesh = SubResource("PrismMesh_0hval")
+metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="terrain" unique_id=626777038]
 
@@ -45,18 +47,11 @@ shape = SubResource("ConcavePolygonShape3D_snlis")
 [node name="terrain2" type="MeshInstance3D" parent="." unique_id=1243134974]
 transform = Transform3D(0.36643633, 0, -0.9304431, 0, 1, 0, 0.9304431, 0, 0.36643633, 4.562092, 0, 3.6951022)
 mesh = SubResource("PrismMesh_0hval")
+metadata/_edit_lock_ = true
 
 [node name="terrain3" type="MeshInstance3D" parent="." unique_id=2122574223]
 transform = Transform3D(0.36643633, 0, -0.9304431, 0, 1, 0, 0.9304431, 0, 0.36643633, -4.951951, 0, -2.1244514)
 mesh = SubResource("PrismMesh_0hval")
+metadata/_edit_lock_ = true
 
-[node name="bnun unit" parent="." unique_id=973964184 instance=ExtResource("1_snlis")]
-transform = Transform3D(0.78, 0, 0, 0, 0.78, 0, 0, 0, 0.78, -2.9918838, 0, -0.75975573)
-_baseColor = Color(0.50065374, 0.66175973, 1, 1)
-
-[node name="bnun unit2" parent="." unique_id=1384347299 instance=ExtResource("1_snlis")]
-transform = Transform3D(0.78, 0, 0, 0, 0.78, 0, 0, 0, 0.78, 0.28093982, 0, 0.61461127)
-_baseColor = Color(1, 0.627451, 0.57254905, 1)
-FlipX = true
-
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=991155434]
+[node name="UI" parent="." unique_id=1611944352 instance=ExtResource("3_yer08")]

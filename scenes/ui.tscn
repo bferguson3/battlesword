@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://das0fndeyjinj"]
+
+[ext_resource type="Script" uid="uid://ciiqrvsiookir" path="res://src/BSUI.cs" id="1_fyqef"]
+
+[node name="UI" type="SubViewportContainer" unique_id=1611944352]
+offset_right = 4000.0
+offset_bottom = 4000.0
+script = ExtResource("1_fyqef")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=155035706]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(4000, 4000)
+render_target_update_mode = 4
+
+[node name="MainControl" type="Control" parent="SubViewport" unique_id=1939466881]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ToolTip" type="Panel" parent="SubViewport/MainControl" unique_id=1782343435]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 50.0
+offset_right = 201.0
+offset_bottom = 148.0
+
+[node name="UnitTitle" type="RichTextLabel" parent="SubViewport/MainControl/ToolTip" unique_id=1882444567]
+layout_mode = 0
+offset_right = 159.0
+offset_bottom = 73.0
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "NAME"
+scroll_active = false
+autowrap_mode = 0
+autowrap_trim_flags = 0
+
+[node name="UnitDescription" type="RichTextLabel" parent="SubViewport/MainControl/ToolTip" unique_id=616068749]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 22.0
+offset_right = 165.0
+offset_bottom = 95.0
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "HP TEST"
+scroll_active = false
+autowrap_mode = 0
+autowrap_trim_flags = 0

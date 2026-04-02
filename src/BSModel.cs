@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class BSModel : Sprite3D
@@ -9,7 +10,11 @@ public partial class BSModel : Sprite3D
 
 	public BSUnit myUnit;
 
-	public BSLoadout myModelLoadout;
+	// The units attack will drop by this amt when this model dies...
+	public List<BSLoadout> myLoadouts = new List<BSLoadout>();
+	// Unique upgrades, etc. 
+	public List<BSAbility> myAbilities = new List<BSAbility>();
+
 	public int currentHearts;
 	public int maxHearts;
 
@@ -21,7 +26,6 @@ public partial class BSModel : Sprite3D
 
 	public void SetCollisionMask(int layer, bool v)
 	{
-		
 		myCollider.SetCollisionMaskValue(layer, v);
 	}
 	public void SetCollisionLayer(int l, bool v)
@@ -45,6 +49,20 @@ public partial class BSModel : Sprite3D
 		mySavedColor = Modulate;
 	}
 
+	public void GetDefaultLoadout(BSUnit u)
+	{
+		myLoadouts = new List<BSLoadout>();
+		for(int i = 0; i < u.loadouts.Count; i++)
+		{
+			myLoadouts.Add(u.loadouts[i].Copy());
+		}
+		myAbilities = new List<BSAbility>();
+		for(int i = 0; i < u.abilities.Count; i++)
+		{
+			myAbilities.Add(u.abilities[i].Copy());
+		}
+	}
+
 	public void SetColor(Color c)
 	{
 		Modulate = c;
@@ -56,11 +74,16 @@ public partial class BSModel : Sprite3D
 		if(myUnit.isSelectable)
 			if(!myUnit.isHighlighted)
 			{
-				if(!flashingColor)
-					myUnit.Flash(new Color("#008800"));
-				else
+				if (!flashingColor)
+				{
+					//GD.Print("dgb");
+					myUnit.Flash(new Color("#008800"));			
+				}
+				else {
 					targetClr = new Color("#008800");
+				}
 				myUnit.isHighlighted = true;
+				myUnit.lastPointedModel = this;
 			}
 	}
 
@@ -99,7 +122,6 @@ public partial class BSModel : Sprite3D
 	{
 		if(flashingColor){
 			if(flashingUp){
-				//GD.Print("up");
 				if(colorMod.R < targetClr.R) colorMod.R += (float)delta ;
 				if(colorMod.G < targetClr.G) colorMod.G += (float)delta ;
 				if(colorMod.B < targetClr.B) colorMod.B += (float)delta ;
@@ -113,10 +135,8 @@ public partial class BSModel : Sprite3D
 				if(colorMod.R > 0) colorMod.R -= (float)delta ;
 				if(colorMod.G > 0) colorMod.G -= (float)delta ;
 				if(colorMod.B > 0) colorMod.B -= (float)delta ;
-				//GD.Print(colorMod.R, colorMod.G, colorMod.B);
 				if(colorMod.R < 0.1) if(colorMod.G < 0.1) if(colorMod.B < 0.1)
-				{
-					//colorMod = new Color(0, 0, 0);
+				{ //colorMod = new Color(0, 0, 0);
 					flashingUp = true;
 					if (!myUnit.isHighlighted)
 					{	
@@ -124,11 +144,8 @@ public partial class BSModel : Sprite3D
 					}
 				}
 			}
-
 			Modulate = mySavedColor + colorMod;
 		}
-		
-		
 		
 		if(inCoverDisplay)
 		{	// flash me grey 

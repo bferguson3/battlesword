@@ -24,6 +24,7 @@ public partial class BSUnit : Node3D
 	int tgtModelsCounted;
 	bool los_get_collisions;
 	public bool isHighlighted;
+	public BSModel lastPointedModel;
 	
 	[Export]
 	public bool processLineOfSight;
@@ -32,62 +33,48 @@ public partial class BSUnit : Node3D
 ///
 	/// Game Stat Stuff 
 	/// 
+	[Export]
 	public string unitName = "UnitName";
-
+	[Export]
 	public bool isLeader = false;
+	[Export]
 	public bool hasLeader = false;
+	[Export]
 	public BSUnit partnerUnit = null;
+	[Export]
 	public string uid = "";
+	[Export]
 	public int cost = 0;
+	[Export]
 	public int baseSize = 32;
-	
+	[Export]
 	public int power = 1; // Q
+	[Export]
 	public int def = 1; // 1 is equivalent to 6+. 	2	3	4	5	   // nothing has 6 (1+)
 	// 												5+	4+	3+	2+     // so 7 - army val.
+	[Export]
 	public int unitCt = 10;		// how many models in this unit?
+	[Export]
 	public int heartsPerModel = 1; // 
-	
+	[Export]
 	public int move = 6; // lowest probably 6, maybe 4, max 20ish
-	
+	//[Export]
 	public List<BSLoadout> loadouts = new List<BSLoadout>();
+	//[Export]
 	public List<BSAbility> abilities = new List<BSAbility>();
-
+	[Export]
 	public bool isSelectable = false;
 ///
 /// 
-	public BSUnit InstantiateMe()
-	{
-		BSUnit b = new BSUnit();
-		b._baseColor = this._baseColor;
-		b.FlipX = this.FlipX;
-		//b.myUnits = // we dont assign this now; we instantiate models as we need them later
-		b.unitName = this.unitName;
-		//b.isLeader = this.isLeader;
-		//b.hasLeader = this.hasLeader;
-		b.uid = this.uid;
-		b.cost = this.cost;
-		b.baseSize = this.baseSize;
-		b.power = this.power;
-		b.def = this.def;
-		b.unitCt = this.unitCt;
-		b.heartsPerModel = this.heartsPerModel;
-		b.move = this.move;
-		// TODO DUPLICATE LOADOUTS? 
-		// TODO DUPLICATE ABILITIES? 
-		// think about this when you are awake 
-		
-		return b;
-	}
-	// Fixme
+	public BSUI bsui;
+	// TODO finish populating these 
 	public List<string> items = new List<string>();
 	public List<string> rules = new List<string>();
-	//public List<string> weapons = new List<string>();
 	public List<string> upgrades = new List<string>();
 /// 
 
 	public override void _Ready()
 	{
-		
 		/*
 		//abilities.Add(new BSAbility());
 		//abilities[0].abilityType = BSAbility.AbilityType.Blast;
@@ -100,14 +87,16 @@ public partial class BSUnit : Node3D
 		// TODO: When checking LOS on target sprite,
 		//. iterate through all 8 of its LOS spots 
 		//. 
+		bsui = GetNode<BSUI>("/root/Battlefield/UI");
 		
-		myUnits = FindChildren("*", "Sprite3D");
+		myUnits = FindChildren("*", "BSModel");
 		foreach (BSModel s in myUnits)
 		{
+			//GD.Print(s.Name);
 			//s.Modulate = _baseColor;
 			s.SetColor(_baseColor);
 		}
-		foreach(Sprite3D s in myUnits)
+		foreach(BSModel s in myUnits)
 		{
 			s.FlipH = FlipX;
 		}
@@ -117,7 +106,10 @@ public partial class BSUnit : Node3D
 	public void Flash(Color c)
 	{
 		foreach(BSModel s in myUnits)
+		{
+			GD.Print(s.Name);
 			s.Flash(c);
+		}
 		
 	}
 	public void FlashOff()
@@ -181,8 +173,6 @@ public partial class BSUnit : Node3D
 		}
 	}
 
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if(processLineOfSight)
@@ -191,6 +181,12 @@ public partial class BSUnit : Node3D
 			// make sure we loop this PROPERLY! might have to wait!
 			GetLOS(GetNode<BSModel>("battlenun5"), GetNode<BSUnit>("/root/Node3D/bnun unit2"));
 		}
-		
+		if (isHighlighted)
+		{
+			bsui.ShowTooltip(lastPointedModel);
+		}else
+		{
+			bsui.HideTooltip(lastPointedModel);
+		}
 	}
 }

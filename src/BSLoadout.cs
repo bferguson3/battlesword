@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 public partial class BSLoadout : Node3D
 {
-	public string name;
-	public int range;
-	public int attacks;
-	public int ap;
+	public string name = "CCW";
+	public int range = 0;
+	public int attacks = 1;
+	public int ap = 0;
+	public int dmg = 1;
 	public List<BSAbility> abilities = new List<BSAbility>();
 
 	public BSLoadout Copy()
@@ -18,6 +19,7 @@ public partial class BSLoadout : Node3D
 		l.range = this.range;
 		l.attacks = this.attacks;
 		l.ap = this.ap;
+		l.dmg = this.dmg;
 
 		l.abilities = this.abilities; // REFERENCE ONLY! FIXME?
 
