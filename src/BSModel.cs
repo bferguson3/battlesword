@@ -7,6 +7,8 @@ public partial class BSModel : Sprite3D
 	public RayCast3D myEyes;
 	private CollisionShape3D myShape;
 	public Godot.Collections.Array<Node> myLines;
+	MeshInstance3D outerCircle;
+	MeshInstance3D innerCircle;
 
 	public BSUnit myUnit;
 
@@ -47,6 +49,29 @@ public partial class BSModel : Sprite3D
 		myCollider.MouseExited += MouseExit;
 
 		mySavedColor = Modulate;
+
+		outerCircle = GetNode<MeshInstance3D>("OuterCircle");
+		innerCircle = GetNode<MeshInstance3D>("InnerCircle");
+	}
+
+	public void SetCircleSize(int mm)
+	{
+		// First, we assume that we are properly scaled at this point. 
+		// both circles need to be placed downward on the Y in 1/2 the mm size. 
+		// e.g. -0.16 for a 32mm model. 
+		outerCircle.TopLevel = false;
+		outerCircle.Position = new Vector3(0, (float)mm * -0.005f, 0); // mm to 0.01 and half again
+		outerCircle.TopLevel = true;
+		innerCircle.Position = new Vector3(0, (float)mm * -0.005f, 0);
+		// then it needs to be resized. mesh.radius needs to be again 1/2 the mm size.
+		SphereMesh s = new SphereMesh();
+		s.Radius = (float)mm * 0.005f; // 60 == 0.3
+		s.Height = (float)mm * 0.01f;
+		innerCircle.Mesh = s;
+		SphereMesh s2 = new SphereMesh();//outerCircle.Mesh as SphereMesh;
+		s2.Radius = s.Radius + (0.254f * 6.0f); // six inch radius 
+		s2.Height = s2.Radius / 2.0f;
+		outerCircle.Mesh = s2;
 	}
 
 	public void GetDefaultLoadout(BSUnit u)

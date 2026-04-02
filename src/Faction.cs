@@ -114,7 +114,6 @@ public partial class Faction : Node3D
 					nu.abilities.Add(ab);
 				}
 			}
-			//GD.Print(nu.heartsPerModel);
 
 			// TODO items[] < DEFAULT upgrades. can be swapped sometimes.
 			//// items[x].content[y].id is the "id" from specialRules. .count, .name also important.

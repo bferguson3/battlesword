@@ -11,34 +11,34 @@ public partial class GameMaster : Node3D
 {
 
 	public Dictionary<string,string> BlessedSistersSprites = new Dictionary<string, string>
-	{
-		{"Exo-Suit High Sister", "exosuit60.png"},
-		{"High Destroyer Sister",""},
-		{"Celestial High Sister",""},
-		{"High Sister","sister1.png"},
-		{"Fanatic Superior",""},
-		{"Novice Leader",""},
-		{"Novice Sisters",""},
-		{"Fanatic Sisters",""},
-		{"Warrior Sisters",""},
-		{"Vanguard Sisters",""},
-		{"Protector Sisters",""},
-		{"Pistoleer Sisters",""},
-		{"Assault Sisters",""},
-		{"Celestial Warrior Sisters",""},
-		{"Support Sisters",""},
-		{"Destroyer Sisters",""},
-		{"Biker Fanatics",""},
-		{"Biker Sisters",""},
+	{ //0, 3, 8, 9, 10, 11, 13
+		{"Exo-Suit High Sister", "exosuit60.png"}, //60
+		{"High Destroyer Sister",""}, // 40
+		{"Celestial High Sister",""}, // 32 
+		{"High Sister","sister1.png"}, // 32
+		{"Fanatic Superior",""}, // 25
+		{"Novice Leader",""}, // 25
+		{"Novice Sisters",""}, // dual ccw 25mm
+		{"Fanatic Sisters",""}, // chain sword
+		{"Warrior Sisters","warriorsister_25.png"}, // rifles
+		{"Vanguard Sisters","sistervanguard_25.png"}, // rifles
+		{"Protector Sisters","protectorsister_25.png"}, // pistol/spear
+		{"Pistoleer Sisters","pistoleersister_25.png"}, // pistols 
+		{"Assault Sisters",""}, // flying, swd pistol
+		{"Celestial Warrior Sisters","celestialsister_25.png"}, // heavy rifle
+		{"Support Sisters",""}, // flamers 25mm
+		{"Destroyer Sisters",""}, // ccw only 40mm
+		{"Biker Fanatics",""}, //60x35
+		{"Biker Sisters",""}, //60x35
 		{"APC",""},
 		{"Procession Altar",""},
 		{"Infernal APC",""},
 		{"Organ Tank",""},
 		{"Battle Tank",""},
-		{"Exo-Suit",""},
-		{"Assault Walker",""},
-		{"Support Walker",""},
-		{"Blessed Titan",""},
+		{"Exo-Suit",""}, // 60
+		{"Assault Walker",""}, //120x92
+		{"Support Walker",""}, // 120x92
+		{"Blessed Titan",""}, // 160x122
 		{"Constance",""},
 		
 	};
@@ -74,7 +74,13 @@ public partial class GameMaster : Node3D
 		AddChild(enemy_faction); // Initializing these objects basically copies all their army data into GD stuff. 
 
 		// test out just spawning one...
-		SpawnUnit(player_faction.factionUnits[0]);
+		//SpawnUnit(player_faction.factionUnits[0]);
+		SpawnUnit(player_faction.factionUnits[3]);
+		SpawnUnit(player_faction.factionUnits[8]);
+		SpawnUnit(player_faction.factionUnits[9]);
+		SpawnUnit(player_faction.factionUnits[10]);
+		SpawnUnit(player_faction.factionUnits[11]);
+		SpawnUnit(player_faction.factionUnits[13]);
 		
 	}
 
@@ -147,8 +153,9 @@ public partial class GameMaster : Node3D
 			m.currentHearts = unit.heartsPerModel;
 			m.maxHearts = unit.heartsPerModel;
 			//GD.Print("hearts: ", m.maxHearts);
-			u.AddChild(m);
 			
+			u.AddChild(m);
+			//m.SetCircleSize(unit.baseSize);
 		}
 		u.uid = unit.uid;
 		u.cost = unit.cost;
@@ -172,6 +179,8 @@ public partial class GameMaster : Node3D
 		foreach (BSModel s in u.myUnits)
 		{
 			s.SetColor(new Color(0.66f, 0.66f, 1.0f));
+			//GD.Print(u.unitName, u.baseSize);
+			s.SetCircleSize(u.baseSize);
 		}
 		return u;
 	}

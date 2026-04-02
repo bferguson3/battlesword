@@ -20,7 +20,7 @@ shader_parameter/threshold = 0.03
 shader_parameter/fresnel_sharpness = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_8gsqb"]
-radius = 0.3
+radius = 0.125
 height = 0.6
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_30clo"]
@@ -93,6 +93,7 @@ debug_shape_thickness = 1
 [node name="OuterCircle" type="MeshInstance3D" parent="." unique_id=1688884429]
 transform = Transform3D(0.9999917, 0.0038388325, -0.0013607997, -0.0038392432, 0.9999926, -0.00029927085, 0.0013596399, 0.00030449586, 0.99999905, 0, -0.1510978, 0)
 top_level = true
+visible = false
 mesh = SubResource("SphereMesh_o6dfp")
 surface_material_override/0 = SubResource("ShaderMaterial_yyhii")
 

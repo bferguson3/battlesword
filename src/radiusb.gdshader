@@ -16,7 +16,6 @@ void fragment() {
 	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 	view.xyz /= view.w;
 	float linear_depth = -view.z;
-	
 	float object_depth = FRAGCOORD.z;
 	//vec3 object_ndc = vec3(SCREEN_UV, object_depth) * 2.0 - 1.0;
 	vec3 object_ndc = vec3(SCREEN_UV * 2.0 - 1.0, object_depth);

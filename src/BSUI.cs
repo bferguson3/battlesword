@@ -27,8 +27,7 @@ public partial class BSUI : Control
 		{
 			toolTip.Visible = false;
 			currentHighlight = null;	
-		}
-		
+		}	
 	}
 
 	public void ShowTooltip(BSModel model)
@@ -37,10 +36,12 @@ public partial class BSUI : Control
 		// show Panel and move to mouse position
 		toolTip.Visible = true;
 		unitTitle.Text = "[color=#ff5050] " + model.myUnit.unitName;
+		if(model.myUnit.unitCt > 1)
+			unitTitle.Text += "[/color] [" + model.myUnit.myUnits.Count + "/" + model.myUnit.unitCt + "]";
 		Vector2 pos = GetViewport().GetMousePosition();
 		toolTip.SetPosition(new Vector2(pos.X + 20, pos.Y + 10));
 		unitDescription.Text = "HP: [color=#00ff60]" + model.currentHearts + "/" + model.maxHearts;
-		//toolTip.SetPosition(GetMousePosition());
+		
 		// update with data 
 	}
 }
