@@ -6,10 +6,8 @@ public partial class BSArmy : Node3D
 	public List<BSUnit> units = new List<BSUnit>();
 }
 
-
 public partial class GameMaster : Node3D
 {
-
 	public Dictionary<string,string> BlessedSistersSprites = new Dictionary<string, string>
 	{ //0, 3, 8, 9, 10, 11, 13
 		{"Exo-Suit High Sister", "exosuit60.png"}, //60
@@ -57,7 +55,7 @@ public partial class GameMaster : Node3D
 
 	// TEMPLATE OF ALL MODELS 
 	PackedScene modelScn = GD.Load<PackedScene>("res://scenes/model.tscn");
-
+	Node3D moveRays;
 
 	public override void _Ready()
 	{
@@ -75,13 +73,42 @@ public partial class GameMaster : Node3D
 
 		// test out just spawning one...
 		//SpawnUnit(player_faction.factionUnits[0]);
-		SpawnUnit(player_faction.factionUnits[3]);
-		SpawnUnit(player_faction.factionUnits[8]);
-		SpawnUnit(player_faction.factionUnits[9]);
-		SpawnUnit(player_faction.factionUnits[10]);
-		SpawnUnit(player_faction.factionUnits[11]);
-		SpawnUnit(player_faction.factionUnits[13]);
+		SpawnUnit(player_faction.factionUnits[3], new Vector3(1, 0 , 0));
+		SpawnUnit(player_faction.factionUnits[8],new Vector3(1, 0 , 0.5f));
+		SpawnUnit(player_faction.factionUnits[9],new Vector3(1, 0 , 1));
+		SpawnUnit(player_faction.factionUnits[10],new Vector3(1, 0 , 1.5f));
+		SpawnUnit(player_faction.factionUnits[11],new Vector3(1, 0 , 2));
+		SpawnUnit(player_faction.factionUnits[13],new Vector3(1, 0 , 2.5f));
 		
+		// Now generate raycast/move objects
+		moveRays = new Node3D();
+		Node mast = new Node3D();
+		var steps = 32;
+		for(int i = 0; i < steps; i++)
+		{
+			float t = (360f / steps) * (float)i;
+			RayCast3D r = new RayCast3D();
+			r.TargetPosition = new Vector3((float)System.Math.Cos(t), 0, (float)System.Math.Sin(t));
+			r.Enabled = false;
+			r.CollisionMask = (1 << 9) | (1 << 10) | (1 << 4); // flags 5, 10, 11 for blocking terrain, difficult terrain, dangerous terrain
+			mast.AddChild(r);
+		}
+		moveRays.AddChild(mast);
+		for(int i = 0; i < (steps - 1); i++){
+			var mast2 = mast.Duplicate();
+			foreach(Node3D m in mast2.GetChildren())
+			{
+				m.RotateX(0.09817477f * i);
+			}
+			moveRays.AddChild(mast2);
+		}
+		//moveRays.ProcessMode = ProcessModeEnum.Disabled;
+		AddChild(moveRays);
+
+		// when needed, reparent the movecaster, and utilize it as a child of the model it needs.
+		// this saves 50k+ objects per scene by just REUSING it. 
+		//moveRays.Reparent(GetNode("/root/Battlefield/terrain"));
+		//EnableMoveCasters();
 	}
 
 	public void AdvanceTurn()
@@ -106,17 +133,30 @@ public partial class GameMaster : Node3D
 
 	public override void _Process(double delta)
 	{
-		
-		Dice d = new Dice(5); // 5D6+0
-		d.Roll();
+		//Dice d = new Dice(5); // 5D6+0
+		//d.Roll();
 		//Dice dd = new Dice(3);
 		//dd.Roll();
 		//d = d + dd;
 		//GD.Print(d.results.ToArray().Stringify());
-		
 	}
 
-	public BSUnit SpawnUnit(BSUnit unit)
+
+	public void EnableMoveCasters()
+	{
+		// TEST ENABLE
+		foreach(var c in moveRays.GetChildren())
+			foreach(RayCast3D r in c.GetChildren())
+				r.Enabled = true;
+	}
+	public void DisableMoveCasters()
+	{
+		foreach(var c in moveRays.GetChildren())
+			foreach(RayCast3D r in c.GetChildren())
+				r.Enabled = false;
+	}
+
+	public BSUnit SpawnUnit(BSUnit unit, Vector3 pos)
 	{
 	// default scale is meant for 32x32 px sprites with scale of 1.0
 	// so, battlenun-body must be scaled e.g. 1.875 for 60px
@@ -148,11 +188,9 @@ public partial class GameMaster : Node3D
 				m.Position = new Vector3(i * scale / 3.0f, scale / 6.0f, 0.0f);
 			else 
 				m.Position = new Vector3((i - 5) * scale / 3.0f, scale / 6.0f, scale / 3.0f);
-			m.GetDefaultLoadout(u); // gets weapons and abilities from "unit master" aka defaults. 
 			// hearts
 			m.currentHearts = unit.heartsPerModel;
 			m.maxHearts = unit.heartsPerModel;
-			//GD.Print("hearts: ", m.maxHearts);
 			
 			u.AddChild(m);
 			//m.SetCircleSize(unit.baseSize);
@@ -175,14 +213,17 @@ public partial class GameMaster : Node3D
 		u.isSelectable = true;
 		AddChild(u);
 		
-		u.myUnits = u.GetChildren();
-		foreach (BSModel s in u.myUnits)
+		u.myModelNodes = u.GetChildren();
+		
+		foreach (BSModel s in u.myModelNodes)
 		{
+			u.myModels.Add(s);
 			s.SetColor(new Color(0.66f, 0.66f, 1.0f));
-			//GD.Print(u.unitName, u.baseSize);
+			
 			s.SetCircleSize(u.baseSize);
 		}
+		u.AssignModelLoadouts();
+		u.Position = pos;
 		return u;
 	}
-	
 }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Godot;
 
 public partial class BSModel : Sprite3D
@@ -9,6 +11,7 @@ public partial class BSModel : Sprite3D
 	public Godot.Collections.Array<Node> myLines;
 	MeshInstance3D outerCircle;
 	MeshInstance3D innerCircle;
+	Node3D moveRays;
 
 	public BSUnit myUnit;
 
@@ -25,6 +28,8 @@ public partial class BSModel : Sprite3D
 	private float colorMult;
 	private bool colorDown;
 	private Color mySavedColor;
+
+	//List<RayCast3D>movementRays = new List<RayCast3D>();
 
 	public void SetCollisionMask(int layer, bool v)
 	{
@@ -52,7 +57,10 @@ public partial class BSModel : Sprite3D
 
 		outerCircle = GetNode<MeshInstance3D>("OuterCircle");
 		innerCircle = GetNode<MeshInstance3D>("InnerCircle");
+
+		
 	}
+
 
 	public void SetCircleSize(int mm)
 	{
@@ -74,19 +82,6 @@ public partial class BSModel : Sprite3D
 		outerCircle.Mesh = s2;
 	}
 
-	public void GetDefaultLoadout(BSUnit u)
-	{
-		myLoadouts = new List<BSLoadout>();
-		for(int i = 0; i < u.loadouts.Count; i++)
-		{
-			myLoadouts.Add(u.loadouts[i].Copy());
-		}
-		myAbilities = new List<BSAbility>();
-		for(int i = 0; i < u.abilities.Count; i++)
-		{
-			myAbilities.Add(u.abilities[i].Copy());
-		}
-	}
 
 	public void SetColor(Color c)
 	{
@@ -99,9 +94,9 @@ public partial class BSModel : Sprite3D
 		if(myUnit.isSelectable)
 			if(!myUnit.isHighlighted)
 			{
+				innerCircle.SetInstanceShaderParameter("intersect_color", new Vector4(1, 0.0f, 0.0f, 0.6f));
 				if (!flashingColor)
 				{
-					//GD.Print("dgb");
 					myUnit.Flash(new Color("#008800"));			
 				}
 				else {
@@ -114,10 +109,18 @@ public partial class BSModel : Sprite3D
 
 	public void MouseExit()
 	{
-		if(myUnit.isHighlighted)
+		if(myUnit.isHighlighted && !myUnit.isSelected)
 		{
+			innerCircle.SetInstanceShaderParameter("intersect_color", new Vector4(1, 1f, 0, 0.5f));
 			myUnit.isHighlighted = false;
 		}
+	}
+
+	public void Deselect()
+	{
+		innerCircle.SetInstanceShaderParameter("intersect_color", new Vector4(1, 1f, 0, 0.5f));
+		myUnit.isHighlighted = false;
+		myUnit.isSelected = false;
 	}
 
 	Color colorMod = new Color(0, 0, 0);

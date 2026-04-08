@@ -1,0 +1,10 @@
+key,_locations
+NAME,res://scenes/ui.tscn
+HP,res://scenes/ui.tscn
+"[font size=4]
+[/font]  Hold ",res://scenes/ui.tscn
+  Advance  ,res://scenes/ui.tscn
+  Rush ,res://scenes/ui.tscn
+"  Charge  [font size=9]
+-----------------------------[/font]",res://scenes/ui.tscn
+BattleSword 3000,

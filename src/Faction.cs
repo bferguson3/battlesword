@@ -46,7 +46,7 @@ public partial class Faction : Node3D
 				Dictionary w = (Dictionary)weaps[k];
 				BSLoadout l = new BSLoadout();
 				l.name = (string)w["name"]; // OK so far
-				int ct = (int)w["count"];
+				l.count = (int)w["count"];
 				l.range = (int)w["range"];
 				l.attacks = (int)w["attacks"];
 				Godot.Collections.Array sp = (Godot.Collections.Array)w["specialRules"];
@@ -73,8 +73,8 @@ public partial class Faction : Node3D
 						// TODO finish me by enabling enum etc. ?? what this mean?
 					}
 				}
-				for(int h = 0; h < ct; h++)
-					nu.loadouts.Add(l.Copy());
+				nu.loadouts.Add(l.Copy());
+				//nu.loadouts.Add(l);
 				// 
 				//if (l.range == 0)
 			//		GD.Print("--", l.name, " x", ct, " R: - A:", l.attacks, " AP", l.ap);
@@ -112,6 +112,7 @@ public partial class Faction : Node3D
 						ab.value = (int)r["rating"];
 
 					nu.abilities.Add(ab);
+					GD.Print(ab.name);
 				}
 			}
 

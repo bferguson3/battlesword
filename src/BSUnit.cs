@@ -9,8 +9,8 @@ public partial class BSUnit : Node3D
 	[Export]
 	public bool FlipX;
 
-	public Godot.Collections.Array<Node> myUnits; // list of my children 
-
+	public Godot.Collections.Array<Node> myModelNodes; // list of my children 
+	public List<BSModel> myModels = new List<BSModel>();
 // I think we can avoid assigning this - these just need a complete BSModel scene to work, which we can do later.
 // Line of sight shit. eyes and rays are set per unit, so... 
 	RayCast3D eyeSource;
@@ -23,7 +23,8 @@ public partial class BSUnit : Node3D
 
 	int tgtModelsCounted;
 	bool los_get_collisions;
-	public bool isHighlighted;
+	public bool isHighlighted = false;
+	public bool isSelected = false;
 	public BSModel lastPointedModel;
 	
 	[Export]
@@ -84,19 +85,17 @@ public partial class BSUnit : Node3D
 		loadouts[0].abilities.Add(new BSAbility());
 		loadouts[0].abilities[0].abilityType = BSAbility.AbilityType.Blast;
 		*/
-		// TODO: When checking LOS on target sprite,
-		//. iterate through all 8 of its LOS spots 
-		//. 
+		
 		bsui = GetNode<BSUI>("/root/Battlefield/UI");
 		
-		myUnits = FindChildren("*", "BSModel");
-		foreach (BSModel s in myUnits)
+		myModelNodes = FindChildren("*", "BSModel");
+		foreach (BSModel s in myModelNodes)
 		{
 			//GD.Print(s.Name);
 			//s.Modulate = _baseColor;
 			s.SetColor(_baseColor);
 		}
-		foreach(BSModel s in myUnits)
+		foreach(BSModel s in myModelNodes)
 		{
 			s.FlipH = FlipX;
 		}
@@ -105,16 +104,15 @@ public partial class BSUnit : Node3D
 
 	public void Flash(Color c)
 	{
-		foreach(BSModel s in myUnits)
+		foreach(BSModel s in myModelNodes)
 		{
-			GD.Print(s.Name);
 			s.Flash(c);
 		}
 		
 	}
 	public void FlashOff()
 	{
-		foreach(BSModel s in myUnits)
+		foreach(BSModel s in myModelNodes)
 			s.FlashOff();
 	}
 
@@ -151,11 +149,46 @@ public partial class BSUnit : Node3D
 		}
     }
 
+	public void AssignModelLoadouts()
+	{
+		// go each loadout, first by melee,
+		// then by range, 
+		// assigning linearly by each type. 
+		// e.g. 4 CCW, 1 power weapon = 5th unit has power weapon.
+		// e.g. 5 pistols, 1 rifle = 1st unit has rifle and pistol. 
+		// we split them by checking if RANGE = 0. 
+		List<BSLoadout> ranged = new List<BSLoadout>();
+		List<BSLoadout> melee = new List<BSLoadout>();
+		foreach(var r in loadouts)
+		{
+			for(int c = 0; c < r.count; c++){
+				if(r.range == 0) melee.Add(r);
+				else ranged.Add(r);
+			}
+		}
+		if(ranged.Count != unitCt) GD.Print("WARNING: Unit count not equal to ranged weapon count! ", unitName, " has ", ranged.Count);
+		if(melee.Count != unitCt) GD.Print("WARNING: Unit count not equal to melee weapon count! ", unitName, " has ", melee.Count);
+		int unitIter = 0;
+		foreach(var r in ranged)
+		{
+			myModels[unitIter].myLoadouts.Add(r);
+			unitIter += 1;
+			if (unitIter >= unitCt) unitIter = 0;
+		}
+		unitIter = 0;
+		foreach(var r in melee)
+		{
+			myModels[unitIter].myLoadouts.Add(r);
+			unitIter += 1;
+			if (unitIter >= unitCt) unitIter = 0;
+		}
+	}
+
 	private void GetLOS(BSModel src_m, BSUnit target_unit)
 	{
 		eyeSource = src_m.myEyes;//GetNode<Node>("battlenun-body").GetNode<RayCast3D>("eyeSource");
 		unitTgt = target_unit;
-		tgtModels = unitTgt.myUnits; //unitTgt.FindChildren("*", "Sprite3D");
+		tgtModels = unitTgt.myModelNodes; //unitTgt.FindChildren("*", "Sprite3D");
 		// make all models look at layer 5, but dont move them there yet 
 		//foreach(BSModel b in tgtModels)
 		//{

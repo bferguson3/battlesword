@@ -1,6 +1,27 @@
 [gd_scene format=3 uid="uid://das0fndeyjinj"]
 
 [ext_resource type="Script" uid="uid://ciiqrvsiookir" path="res://src/BSUI.cs" id="1_fyqef"]
+[ext_resource type="Script" uid="uid://cpwk3xuing6ij" path="res://src/menuOption.cs" id="2_x4jx1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt7q6"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.11858138, 0.11858138, 0.11858138, 0.8117647)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.7919991, 0.79199916, 0.7919991, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="SystemFont" id="SystemFont_nt7q6"]
+font_names = PackedStringArray("Serif")
 
 [node name="UI" type="SubViewportContainer" unique_id=1611944352]
 offset_right = 4000.0
@@ -13,39 +34,120 @@ handle_input_locally = false
 size = Vector2i(4000, 4000)
 render_target_update_mode = 4
 
-[node name="MainControl" type="Control" parent="SubViewport" unique_id=1939466881]
+[node name="ToolTip" type="Control" parent="SubViewport" unique_id=1939466881]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 620.0
+offset_bottom = 379.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="ToolTip" type="Panel" parent="SubViewport/MainControl" unique_id=1782343435]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 50.0
-offset_right = 201.0
-offset_bottom = 148.0
+[node name="NameContainer" type="PanelContainer" parent="SubViewport/ToolTip" unique_id=1984292619]
+layout_mode = 1
+offset_right = 48.0
+offset_bottom = 20.0
 
-[node name="UnitTitle" type="RichTextLabel" parent="SubViewport/MainControl/ToolTip" unique_id=1882444567]
-layout_mode = 0
-offset_right = 159.0
-offset_bottom = 73.0
+[node name="UnitTitle" type="RichTextLabel" parent="SubViewport/ToolTip/NameContainer" unique_id=1882444567]
+clip_contents = false
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
 text = "NAME"
+fit_content = true
 scroll_active = false
 autowrap_mode = 0
 autowrap_trim_flags = 0
 
-[node name="UnitDescription" type="RichTextLabel" parent="SubViewport/MainControl/ToolTip" unique_id=616068749]
+[node name="DescriptionContainer" type="PanelContainer" parent="SubViewport/ToolTip" unique_id=497183267]
+clip_contents = true
 layout_mode = 0
-offset_left = 6.0
-offset_top = 22.0
-offset_right = 165.0
-offset_bottom = 95.0
+offset_top = 20.0
+offset_right = 48.0
+offset_bottom = 37.0
+
+[node name="UnitDescription" type="RichTextLabel" parent="SubViewport/ToolTip/DescriptionContainer" unique_id=602676252]
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "HP TEST"
+text = "HP"
+fit_content = true
 scroll_active = false
 autowrap_mode = 0
 autowrap_trim_flags = 0
+
+[node name="SubMenu" type="Control" parent="SubViewport" unique_id=221634630]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -4000.0
+offset_right = -3960.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="MenuContainer" type="PanelContainer" parent="SubViewport/SubMenu" unique_id=605557742]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_right = 50.0
+offset_bottom = 106.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nt7q6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/SubMenu/MenuContainer" unique_id=1882005147]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Label" type="Label" parent="SubViewport/SubMenu/MenuContainer/VBoxContainer" unique_id=1599588308]
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+
+[node name="MenuOption1" type="RichTextLabel" parent="SubViewport/SubMenu/MenuContainer/VBoxContainer" unique_id=103459002]
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_nt7q6")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "  Hold "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("2_x4jx1")
+
+[node name="MenuOption2" type="RichTextLabel" parent="SubViewport/SubMenu/MenuContainer/VBoxContainer" unique_id=2036875202]
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_nt7q6")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "  Advance  "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("2_x4jx1")
+
+[node name="MenuOption3" type="RichTextLabel" parent="SubViewport/SubMenu/MenuContainer/VBoxContainer" unique_id=1570286276]
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_nt7q6")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "  Rush  "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("2_x4jx1")
+
+[node name="MenuOption4" type="RichTextLabel" parent="SubViewport/SubMenu/MenuContainer/VBoxContainer" unique_id=1594608341]
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_nt7q6")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "  Charge  "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("2_x4jx1")
+
+[node name="Label2" type="Label" parent="SubViewport/SubMenu/MenuContainer/VBoxContainer" unique_id=1563702367]
+layout_mode = 2
+theme_override_font_sizes/font_size = 5

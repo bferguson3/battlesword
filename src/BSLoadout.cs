@@ -10,6 +10,9 @@ public partial class BSLoadout : Node3D
 	public int ap = 0;
 	public int dmg = 1;
 	public List<BSAbility> abilities = new List<BSAbility>();
+	
+	public int count = 1; // this is only for UNIT level loadout info 
+	// it is ignored on the model level, or should be. 
 
 	public BSLoadout Copy()
 	{
@@ -20,6 +23,7 @@ public partial class BSLoadout : Node3D
 		l.attacks = this.attacks;
 		l.ap = this.ap;
 		l.dmg = this.dmg;
+		l.count = this.count;
 
 		l.abilities = this.abilities; // REFERENCE ONLY! FIXME?
 

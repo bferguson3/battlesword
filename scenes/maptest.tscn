@@ -7,7 +7,7 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_0hval"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snlis"]
-albedo_color = Color(0.4456672, 0.37776682, 0.24216294, 1)
+albedo_color = Color(0.22838673, 0.30699217, 0.14370257, 1)
 
 [sub_resource type="Environment" id="Environment_0hval"]
 background_mode = 1
